@@ -1,0 +1,68 @@
+server:
+  port: 7085
+spring:
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  session:
+    store-type: redis
+  datasource:
+    dynamic:
+      primary: mysql #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        mysql:
+          url: jdbc:mysql:///porn?useUnicode=true&rewriteBatchedStatements=true&serverTimezone=GMT%2B8
+          username: root
+          password: root1234
+          driver-class-name: com.mysql.cj.jdbc.Driver
+# 配置日志
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    ROOT: INFO
+    # 可以设置指定包的输出级别,这样的话，指定的包，级别以下的日志就不在打印或者写入日志文件
+    org.apache: ERROR
+    org.springframework: ERROR
+    com.stc.fugitive.mapper: DEBUG #控制台开启打印sql
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mapper/*.xml
+  # 指定实体类的包
+  type-aliases-package: com.stc.fugitive.entity
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    db-config:
+      #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: auto
+      #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+      field-strategy: NOT_EMPTY
+      #数据库类型
+      db-type: MYSQL
+  configuration:
+    cache-enabled: false
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+
+    #控制台开启打印sql
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #改为自己写的
+    #log-impl: com.stc.fugitive.config.MybatisPlusOutImpl
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'

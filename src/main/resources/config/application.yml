@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: fugitive
+    
+logging:
+  location: /Users/suntianci/Downloads/log/fugitive
