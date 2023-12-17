@@ -180,6 +180,19 @@
             <version>30.1-jre</version>
         </dependency>
 
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-core</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/us.codecraft/webmagic-extension -->
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-extension</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

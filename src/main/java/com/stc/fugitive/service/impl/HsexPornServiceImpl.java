@@ -14,8 +14,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import us.codecraft.webmagic.selector.Html;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +82,7 @@ public class HsexPornServiceImpl {
             pornMovieService.updateById(pornMovie);
             return;
         }
-        if(true){
+        if (true) {
             return;
         }
         log.info("{}处理中...", fileMp4.getPath());
@@ -227,6 +233,8 @@ public class HsexPornServiceImpl {
         return pornMovieList;
     }
 
+    private static final String CHROME_DRIVER_PATH = "/Users/suntianci/Downloads/chromedriver-mac-x64/chromedriver";
+
     public List<PornMovie> getMovieByAuthorUid(String author) {//syncFirstPage同步全部视频还是第一页
         int pageNo = 1;
         int pageSize = 24;
@@ -276,6 +284,9 @@ public class HsexPornServiceImpl {
     }
 
     public Document getDocument(String urlHtml) throws IOException {
+        if (true) {
+            return getDocumentWM(urlHtml);
+        }
         Document document = Jsoup.connect(urlHtml)
                 .header("Accept-Charset", "utf-8")
                 .header("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7")
@@ -283,6 +294,45 @@ public class HsexPornServiceImpl {
                 .userAgent("Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1")
                 .timeout(10 * 1000)
                 .post();
+        return document;
+    }
+
+    //https://blog.csdn.net/eric520zenobia/article/details/113700334
+    public Document getDocumentWM(String url) {
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+        webDriver.manage().window().maximize();
+        webDriver.get(url);
+        String cookies = "a=a;b=b;c=c";
+        //为了绕过登录，在此处设置cookie信息
+        if (StringUtils.isNotBlank(cookies)) {
+            String[] cookieArr = cookies.split("\\;");
+            for (String cookieStr : cookieArr) {
+                if (StringUtils.isNotBlank(cookieStr)) {
+                    cookieStr = cookieStr.trim();
+                    String[] entry = cookieStr.split("\\=");
+                    webDriver.manage().addCookie(new Cookie(entry[0].trim(), entry[1].trim()));
+                }
+            }
+        }
+        webDriver.get(url);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement webElement = webDriver.findElement(By.xpath("/html"));
+        String content = webElement.getAttribute("outerHTML");
+
+        Html html = new Html(content, url);
+        Document document = html.getDocument();
+
+        //webDriver.quit();//关闭所有窗口,关闭浏览器
+        webDriver.close();//关闭当前窗口
+
         return document;
     }
 
