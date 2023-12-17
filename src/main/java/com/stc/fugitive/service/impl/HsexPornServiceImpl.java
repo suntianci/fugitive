@@ -83,9 +83,6 @@ public class HsexPornServiceImpl {
             pornMovieService.updateById(pornMovie);
             return;
         }
-        if (true) {
-            return;
-        }
         log.info("{}处理中...", fileMp4.getPath());
         List<Integer> filelist = new ArrayList<>();
         List<Integer> filelistFail = new ArrayList<>();
