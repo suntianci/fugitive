@@ -6,6 +6,7 @@ import com.stc.fugitive.entity.PornMovie;
 import com.stc.fugitive.service.PornMovieService;
 import com.stc.fugitive.util.FfmpegUtils;
 import com.stc.fugitive.util.HsexPornSpiderUtils;
+import com.stc.fugitive.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -233,8 +234,6 @@ public class HsexPornServiceImpl {
         return pornMovieList;
     }
 
-    private static final String CHROME_DRIVER_PATH = "/Users/suntianci/Downloads/chromedriver-mac-x64/chromedriver";
-
     public List<PornMovie> getMovieByAuthorUid(String author) {//syncFirstPage同步全部视频还是第一页
         int pageNo = 1;
         int pageSize = 24;
@@ -299,7 +298,7 @@ public class HsexPornServiceImpl {
 
     //https://blog.csdn.net/eric520zenobia/article/details/113700334
     public Document getDocumentWM(String url) {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
+        System.setProperty("webdriver.chrome.driver", WebUtils.CHROME_DRIVER_PATH);
         WebDriver webDriver = new ChromeDriver();
         webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
