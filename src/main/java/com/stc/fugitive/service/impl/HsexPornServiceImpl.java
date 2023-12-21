@@ -20,6 +20,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.selector.Html;
@@ -32,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ForkJoinPool;
@@ -296,7 +298,30 @@ public class HsexPornServiceImpl {
     //https://blog.csdn.net/eric520zenobia/article/details/113700334
     public Document getDocumentWM(String url) {
         System.setProperty("webdriver.chrome.driver", WebUtils.CHROME_DRIVER_PATH);
-        WebDriver webDriver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");//开启无头模式
+        options.addArguments("--disable-gpu");//禁止gpu渲染
+        options.addArguments("–-no-sandbox");//关闭沙盒模式
+        options.addArguments("--disable-dev-shm-usage");
+
+        HashMap<String, Object> prefs = new HashMap<>();
+        prefs.put("profile.default_content_settings", 2);
+        options.setExperimentalOption("prefs", prefs);
+        options.addArguments("blink-settings=imagesEnabled=false");//禁用图片
+
+        options.addArguments("disable-features=NetworkService");
+        options.addArguments("ignore-certificate-errors");
+        options.addArguments("silent-launch");
+        options.addArguments("disable-application-cache");
+        options.addArguments("disable-web-security");
+        options.addArguments("no-proxy-server");
+        options.addArguments("disable-dev-shm-usage");
+        options.addArguments("window-size=2048,1536");
+
+
+        WebDriver webDriver = new ChromeDriver(options);
+//        WebDriver webDriver = new ChromeDriver();
         webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();

@@ -169,8 +169,8 @@ public class PornUserController {
                                 .set(PornUser::getStatus, "success:" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                                 .set(PornUser::getMovieCount, pornMovieService.count(new UpdateWrapper<PornMovie>().lambda().eq(PornMovie::getAuthor, pornUser.getAuthor())))
                                 .eq(PornUser::getId, pornUser.getId()));
-                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
-                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumbmp4(e.getVideoId()));//处理缩略图
+//                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
+//                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumbmp4(e.getVideoId()));//处理缩略图
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);
                         pornUserService.update(new UpdateWrapper<PornUser>().lambda()
