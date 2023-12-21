@@ -124,9 +124,10 @@ public class PornUserController {
         forkJoinPool.submit(() -> IntStream.range(1, pageNo != null && pageNo > 0 ? pageNo : 100).forEach(i -> {
             List<PornMovie> pornMovieList = hsexPornService.getMovieByPage(i, HsexPornServiceImpl.VIDEO_PAGE_URL);
             pornMovieService.saveOrUpdateMultiple(pornMovieList);
-            pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
 
-            pornMovieList.parallelStream().forEach(pornMovie -> HsexPornSpiderUtils.thumbmp4(pornMovie.getVideoId()));
+//            pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
+//            pornMovieList.parallelStream().forEach(pornMovie -> HsexPornSpiderUtils.thumbmp4(pornMovie.getVideoId()));
+
             pornMovieList.parallelStream().map(PornMovie::getAuthor).collect(Collectors.toSet()).parallelStream().forEach(author -> {
                 int movieCount = pornMovieService.count(new QueryWrapper<PornMovie>().lambda().eq(PornMovie::getAuthor, author));
                 int movieCountUnfinish = pornMovieService.count(new QueryWrapper<PornMovie>().lambda().eq(PornMovie::getAuthor, author).eq(PornMovie::getStatus, "unfinish"));
@@ -169,8 +170,8 @@ public class PornUserController {
                                 .set(PornUser::getStatus, "success:" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                                 .set(PornUser::getMovieCount, pornMovieService.count(new UpdateWrapper<PornMovie>().lambda().eq(PornMovie::getAuthor, pornUser.getAuthor())))
                                 .eq(PornUser::getId, pornUser.getId()));
-//                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
-//                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumbmp4(e.getVideoId()));//处理缩略图
+                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumb(e.getVideoId()));//处理缩略图
+                        pornMovieList.parallelStream().forEach(e -> HsexPornSpiderUtils.thumbmp4(e.getVideoId()));//处理缩略图
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);
                         pornUserService.update(new UpdateWrapper<PornUser>().lambda()
