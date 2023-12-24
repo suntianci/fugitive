@@ -1,6 +1,0 @@
-2023-12-24 17:05:03.630 [SpringContextShutdownHook] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler#shutdown 218 :Shutting down ExecutorService 'taskScheduler'
-2023-12-24 17:05:03.686 [SpringContextShutdownHook] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor#shutdown 218 :Shutting down ExecutorService 'stcThreadPoolTaskExecutor'
-2023-12-24 17:05:03.687 [SpringContextShutdownHook] INFO  com.baomidou.dynamic.datasource.DynamicRoutingDataSource#destroy 215 :dynamic-datasource start closing ....
-2023-12-24 17:05:03.697 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource#close 350 :mysql - Shutdown initiated...
-2023-12-24 17:05:03.707 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource#close 352 :mysql - Shutdown completed.
-2023-12-24 17:05:03.707 [SpringContextShutdownHook] INFO  com.baomidou.dynamic.datasource.DynamicRoutingDataSource#destroy 219 :dynamic-datasource all closed success,bye
