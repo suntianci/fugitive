@@ -18,14 +18,13 @@ import java.util.concurrent.TimeUnit;
 public class PornhubDownload {
 
     public static final String VIDEO_PATH = "/Users/suntianci/Downloads/wudalan/pornhub";
-    public static final String VIDEO_TEMP_PATH = "/Users/suntianci/Downloads/wudalan/pornhub/temp";
 
     public static void main(String[] args) {
-        String videoUrl = "https://ev-h.phncdn.com/hls/videos/202303/24/428076821/,1080P_4000K,720P_4000K,480P_2000K,240P_1000K,_428076821.mp4.urlset/seg-3-f1-v1-a1.ts?validfrom=1687183741&validto=1687190941&ipa=220.246.88.186&hdl=-1&hash=mC9THvwsC7YW8o1nIYjjOS3voL4%3D&";
+        String videoUrl = "https://ev-h.phncdn.com/hls/videos/202305/08/431154841/,1080P_4000K,720P_4000K,480P_2000K,240P_1000K,_431154841.mp4.urlset/seg-1-f4-v1-a1.ts?validfrom=1703407373&validto=1703414573&ipa=220.246.88.187&hdl=-1&hash=S79sHnGwoN15BgDCTs4tFkC0Yzc%3D";
 
         String author = "jijiaolian";
-        String viewkey = "641d700d2a828";
-        String videoName = "淘气的青梅竹马来我家借住，可爱的外表下竟然小恶魔属性全线拉满，满脑子都是色色的事情";
+        String viewkey = "6459504b9895f";
+        String videoName = "猫系女仆家政服务，黑丝过膝袜女仆上门，色色的隐藏菜单让人欲罢不能满足所有幻想";
 
         download(videoUrl, author, viewkey, videoName);
     }
@@ -38,7 +37,7 @@ public class PornhubDownload {
         int i = 1;
         while (true) {
             String tsFileName = String.format("seg-%s-f2-v1-a1.ts", i);
-            String realUrl = videoUrl.replaceAll("seg-[\\d]{1,3}-f1-v1-a1.ts", tsFileName);
+            String realUrl = videoUrl.replaceAll("seg-[\\d]{1,3}-f[\\d]{1}-v1-a1.ts", tsFileName);
             int responseCode = down(tsFileName, realUrl, author, viewkey);
 
             if (responseCode == 200) {
