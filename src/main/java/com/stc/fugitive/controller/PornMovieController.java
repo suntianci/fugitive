@@ -233,7 +233,9 @@ public class PornMovieController {
                     904512, 914770, 914776, 914749, 914744, 914151, 914427, 914076, 914419, 913824, 913852, 905076, 914057, 914383, 914373, 914353,
                     914343, 904413, 913576, 911946, 912830, 907820, 915468, 915469, 915467, 907315, 915461, 915457, 905357, 906061, 915660, 915107,
                     915075, 914813, 914841, 914811, 914757, 914712, 915378, 916355, 909042, 916078, 908828, 915715, 915790, 915806, 912186, 915709,
-                    917659, 917540, 917492, 917477, 917485, 917478, 917486, 917533, 917479, 917542, 917507,917686
+                    917659, 917540, 917492, 917477, 917485, 917478, 917486, 917533, 917479, 917542, 917507, 917686, 919055, 918421, 918245, 918285,
+                    918203, 919068, 918797, 918387, 913398, 914293, 916036, 917228, 913884, 919065, 917968, 917967, 919048, 918794, 918800, 918804,
+                    917705, 912301, 909042, 919030, 918611, 919133, 919141, 919137
             ));
             list.parallelStream().forEach(i -> {
                 PornMovie one = pornMovieService.getOne(new QueryWrapper<PornMovie>().lambda().eq(PornMovie::getVideoId, i).last(" limit 1 "));
@@ -246,7 +248,7 @@ public class PornMovieController {
                     , "91斯文禽兽x", "gc155", "91小腰精", "sunnygubby", "腰精武小姐", "91shishi", "肤絲即肉絲", "ENYQ", "waldeinsamkeit2000"
                     , "diwan98", "爱她-小二先生", "嘉嘉", "天师的淫妻俱乐部", "MRtu", "LOEWE_END", "swfbxn106", "lookoo", "算啊会", "韦小宝呀"
                     , "佳多饱", "Dom窒息", "烈Retsu_dao", "91斯文禽兽x", "西门庆在91", "Timepasserby", "阿森aipapa", "你的白月光", "拆二代Cc"
-                    , "spidersex", "猫先生", "小拾柒", "做爱不会累", "cxs6687", "ADC一串三啊"
+                    , "spidersex", "猫先生", "小拾柒", "做爱不会累", "cxs6687", "ADC一串三啊", "khcheung"
             ));
             List<PornMovie> pornMovieList = pornMovieService.list(new QueryWrapper<PornMovie>().lambda().in(PornMovie::getAuthor, authorList));
             pornMovieList.addAll(pornMovieService.list(new QueryWrapper<PornMovie>().lambda().in(PornMovie::getVideoId, list.stream().distinct().collect(Collectors.toList()))));
